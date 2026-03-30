@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Closes Deals — GONG Content Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#0C0C0E;--surface:#161618;--border:#2A2A2E;--text:#E8E6E3;--muted:#8A8A8E;
+--accent:#D4A853;--content:#4A9EDB;--published:#E8734A;--gold:#DAA520;--green:#5B8C6B;
+--serif:'Cormorant Garamond',Georgia,serif;--sans:'DM Sans',Helvetica,sans-serif;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+.header{border-bottom:1px solid var(--border);padding:20px 32px;display:flex;justify-content:space-between;align-items:baseline}
+.header-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent)}
+.header-title{font-family:var(--serif);font-size:26px;font-weight:300;margin-top:6px}
+.header-meta{font-size:11px;color:var(--muted)}
+.tabs{border-bottom:1px solid var(--border);padding:0 32px;display:flex;gap:0;overflow-x:auto}
+.tab{background:none;border:none;border-bottom:2px solid transparent;padding:14px 16px;cursor:pointer;font-family:var(--sans);font-size:12px;color:var(--muted);font-weight:400;letter-spacing:.5px;transition:all .2s;white-space:nowrap}
+.tab.active{color:var(--accent);font-weight:600;border-bottom-color:var(--accent)}
+.tab:hover{color:var(--text)}
+.content{padding:32px 32px 100px;max-width:800px;margin:0 auto}
+.view{display:none}.view.active{display:block}
+.section{margin-bottom:40px}
+.section-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-bottom:48px}
+.stat{text-align:center}
+.stat-value{font-family:var(--serif);font-size:42px;font-weight:300;color:var(--accent);line-height:1}
+.stat-label{font-size:11px;color:var(--muted);margin-top:8px;letter-spacing:.5px;text-transform:uppercase}
+.stat-sub{font-size:12px;color:var(--text);margin-top:4px}
+.card{background:var(--surface);border-radius:8px;padding:20px;border:1px solid var(--border)}
+.card-content{border-color:var(--content)}.card-published{border-color:var(--published)}.card-accent{border-color:color-mix(in srgb,var(--accent) 30%,transparent)}.card-green{border-color:var(--green)}
+.card-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+.card-label-content{color:var(--content)}.card-label-published{color:var(--published)}.card-label-green{color:var(--green)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.text-body{font-size:13px;color:var(--text);line-height:1.6}
+.text-muted{font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:16px}
+.speaker-card{background:var(--surface);border-radius:6px;padding:16px 14px;border:1px solid var(--border)}
+.speaker-name{font-size:13px;font-weight:600}
+.speaker-value{font-family:var(--serif);font-size:24px;font-weight:300;color:var(--text);margin:4px 0}
+.speaker-meta{font-size:11px;color:var(--muted)}
+.deal-row{padding:10px 0;display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:start}
+.deal-row+.deal-row{border-top:1px solid var(--border)}
+.deal-company{font-size:13px;font-weight:600;color:var(--text)}
+.deal-value{font-size:16px;font-weight:300;color:var(--published)}
+.deal-content{font-size:12px;color:var(--text)}
+.deal-cycle{font-size:11px;color:var(--muted);margin-top:2px}
+.deal-total{border-top:1px solid var(--border);padding-top:12px;margin-top:4px;display:flex;justify-content:space-between;align-items:baseline}
+.deal-total-label{font-size:12px;font-weight:600;color:var(--published)}
+.deal-total-value{font-family:var(--serif);font-size:20px;font-weight:300;color:var(--published)}
+.quote{border-left:2px solid color-mix(in srgb,var(--accent) 20%,transparent);padding-left:16px;margin:16px 0}
+.quote-text{font-family:var(--serif);font-size:16px;font-style:italic;color:var(--text);line-height:1.5}
+.quote-attr{font-size:11px;color:var(--muted);margin-top:6px}
+.prod-row{padding:10px 0}.prod-row+.prod-row{border-top:1px solid var(--border)}
+.prod-name{font-size:13px;font-weight:600;color:var(--text)}
+.prod-status{font-size:12px;color:var(--muted);margin-top:2px}
+.migration{background:linear-gradient(135deg,var(--surface),#1a1614);border:1px solid var(--accent);border-radius:8px;padding:24px}
+.migration-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;margin-bottom:16px}
+.migration-num{font-family:var(--serif);font-size:24px;text-align:center}
+.migration-label{font-size:10px;color:var(--muted);text-align:center}
+.migration-arrow{font-family:var(--serif);font-size:20px;color:var(--accent);text-align:center}
+.discussion-item{padding:12px 0;display:flex;gap:10px}
+.discussion-item+.discussion-item{border-top:1px solid var(--border)}
+.discussion-num{font-size:11px;color:var(--accent);font-weight:600;min-width:20px}
+.discussion-text{font-size:13px;color:var(--text);line-height:1.6}
+.footer-nav{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(transparent,var(--bg));padding:40px 32px 16px;text-align:center}
+.footer-btn{background:none;border:1px solid color-mix(in srgb,var(--accent) 27%,transparent);padding:10px 24px;border-radius:4px;cursor:pointer;font-family:var(--sans);font-size:12px;color:var(--accent);letter-spacing:1px}
+.footer-btn:hover{border-color:var(--accent)}
+.source{text-align:center;margin-top:32px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+h2{font-family:var(--serif);font-weight:300;color:var(--text);margin:0;line-height:1.3}
+.format-row{display:flex;justify-content:space-between;align-items:baseline;padding:8px 0}
+.format-row+.format-row{border-top:1px solid var(--border)}
+.format-name{font-size:12px;color:var(--text)}
+.format-stats{font-size:11px;color:var(--muted);text-align:right}
+.format-value{font-size:13px;font-weight:500;color:var(--accent)}
+.comm-row{display:grid;grid-template-columns:1fr 80px 80px;gap:8px;padding:7px 0;align-items:baseline}
+.comm-row+.comm-row{border-top:1px solid var(--border)}
+.comm-name{font-size:12px;color:var(--text)}
+.comm-val{font-size:12px;color:var(--accent);text-align:right}
+.comm-rate{font-size:11px;color:var(--muted);text-align:right}
+.ret-row{display:grid;grid-template-columns:1fr 70px 70px 50px;gap:8px;padding:7px 0;align-items:baseline}
+.ret-row+.ret-row{border-top:1px solid var(--border)}
+.ret-name{font-size:12px;color:var(--text)}
+.ret-val{font-size:12px;text-align:right}
+.ret-green{color:var(--green)}.ret-amber{color:var(--accent)}.ret-red{color:var(--published)}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="header-label">World 50 Content Intelligence</div>
+    <div class="header-title">What Closes Deals</div>
+  </div>
+  <div class="header-meta">1,664 deals coded · Mar 2026</div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="showView('thesis',this)">01 — The Landscape</button>
+  <button class="tab" onclick="showView('evidence',this)">02 — The Evidence</button>
+  <button class="tab" onclick="showView('retention',this)">03 — The Retention Case</button>
+  <button class="tab" onclick="showView('ask',this)">04 — The Opportunity</button>
+</div>
+
+<div class="content">
+
+<!-- ═══ TAB 1: THE LANDSCAPE ═══ -->
+<div id="thesis" class="view active">
+
+  <div style="text-align:center;margin-bottom:48px">
+    <h2 style="font-size:30px">An external content operation already produces $15.7M in attributed pipeline. The data makes the case for formalizing it as a dedicated function.</h2>
+    <p style="font-size:13px;color:var(--muted);margin-top:16px;line-height:1.6">We coded 1,664 GONG deal narratives from May 2024 through March 2026 — $85.9M in membership sales. In 273 of those deals, the salesperson explicitly credits a piece of content as a factor in the close. That content pipeline is worth $15.7M. What follows is the evidence — on both the acquisition side and the retention side.</p>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat">
+      <div class="stat-value">1,664</div>
+      <div class="stat-label">Deals Coded</div>
+      <div class="stat-sub">$85.9M total value</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">273</div>
+      <div class="stat-label">Content Attributed</div>
+      <div class="stat-sub">$15.7M — 18.3% of coded revenue</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">$768K</div>
+      <div class="stat-label">Zero-Cost Pipeline</div>
+      <div class="stat-sub">10 deals via published content alone</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Two kinds of content pipeline</div>
+    <div class="grid-2">
+      <div class="card card-content">
+        <div class="card-label card-label-content">Curated — $15.0M</div>
+        <div class="text-body">263 deals. A salesperson selects content and sends it to a specific prospect. The content does the heavy lifting, but every deal requires a human to press send.</div>
+      </div>
+      <div class="card card-published">
+        <div class="card-label card-label-published">Published — $768K</div>
+        <div class="text-body">10 deals. Published content reaches the prospect through a newsletter or broadcast channel with no sales touch. Zero marginal cost. Average deal: $76,800 — 35% above curated.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">What converts — format rankings by total value</div>
+    <div class="card">
+      <div class="format-row">
+        <div><span class="format-name">JIT / Engage speaker calls</span></div>
+        <div style="text-align:right"><span class="format-value">$8.1M</span><br><span class="format-stats">136 deals · $60K avg · 1% zero-cost rate</span></div>
+      </div>
+      <div class="format-row">
+        <div><span class="format-name">Summit highlights / SiB</span></div>
+        <div style="text-align:right"><span class="format-value">$4.7M</span><br><span class="format-stats">52 deals · $91K avg · 2% zero-cost rate</span></div>
+      </div>
+      <div class="format-row">
+        <div><span class="format-name">Connor campaigns & cadences</span></div>
+        <div style="text-align:right"><span class="format-value">$1.8M</span><br><span class="format-stats">34 deals · $54K avg · 9% zero-cost rate</span></div>
+      </div>
+      <div class="format-row">
+        <div><span class="format-name">Inside Programs (NVIDIA, Ford)</span></div>
+        <div style="text-align:right"><span class="format-value">$1.7M</span><br><span class="format-stats">27 deals · $65K avg · 4% zero-cost rate</span></div>
+      </div>
+      <div class="format-row">
+        <div><span class="format-name">Compendiums / surveys</span></div>
+        <div style="text-align:right"><span class="format-value">$1.4M</span><br><span class="format-stats">22 deals · $66K avg · 9% zero-cost rate</span></div>
+      </div>
+      <div class="format-row">
+        <div><span class="format-name">Prospect Newsletter</span></div>
+        <div style="text-align:right"><span class="format-value">$400K</span><br><span class="format-stats">6 deals · $67K avg · 17% zero-cost rate</span></div>
+      </div>
+      <div class="format-row">
+        <div><span class="format-name">"Excel in Your First Year"</span></div>
+        <div style="text-align:right"><span class="format-value">$337K</span><br><span class="format-stats">4 deals · $84K avg · 25% zero-cost rate</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <p class="text-body">The gap between $768K and $15.0M is a distribution problem, not a content problem. The content that closes deals already exists — Insights Briefings, summit highlights, the Prospect Newsletter, "Excel in Your First Year," JIT call recaps. Today, most of it reaches prospects only when a salesperson manually sends it. The question is whether to formalize the function that produces and distributes this content externally.</p>
+  </div>
+
+</div>
+
+<!-- ═══ TAB 2: THE EVIDENCE ═══ -->
+<div id="evidence" class="view">
+
+  <div style="text-align:center;margin-bottom:40px">
+    <h2 style="font-size:28px">Three sources of evidence: speaker attribution, zero-cost deals, and sales testimony.</h2>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Speaker-level attribution — top 5 account for $5.3M</div>
+    <p class="text-muted">These speakers' content is explicitly credited by name in the GONG deal narrative.</p>
+    <div class="grid-3">
+      <div class="speaker-card">
+        <div class="speaker-name" style="color:var(--accent)">Rob Kaplan</div>
+        <div class="speaker-value">$1.6M</div>
+        <div class="speaker-meta">25 deals · $64K avg · 20 communities</div>
+      </div>
+      <div class="speaker-card">
+        <div class="speaker-name" style="color:var(--published)">Robert Lighthizer</div>
+        <div class="speaker-value">$1.3M</div>
+        <div class="speaker-meta">20 deals · $66K avg · 16 communities</div>
+      </div>
+      <div class="speaker-card">
+        <div class="speaker-name" style="color:var(--content)">David Petraeus</div>
+        <div class="speaker-value">$979K</div>
+        <div class="speaker-meta">18 deals · $54K avg · 13 communities</div>
+      </div>
+    </div>
+    <div class="grid-2" style="margin-top:12px">
+      <div class="speaker-card">
+        <div class="speaker-name" style="color:var(--muted)">Ian Bremmer</div>
+        <div class="speaker-value">$772K</div>
+        <div class="speaker-meta">14 deals · $55K avg · 11 communities</div>
+      </div>
+      <div class="speaker-card">
+        <div class="speaker-name" style="color:var(--muted)">R.P. Eddy</div>
+        <div class="speaker-value">$680K</div>
+        <div class="speaker-meta">13 deals · $52K avg · 12 communities</div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <div class="speaker-name" style="color:var(--accent);margin-bottom:4px">Connor Mayer — content operations</div>
+      <div class="speaker-value" style="font-family:var(--serif);font-size:24px;font-weight:300">$4.4M</div>
+      <div class="speaker-meta">76 deals · $57K avg · 24+ communities</div>
+      <div class="speaker-meta" style="margin-top:4px">4 deals ($253K) already converting at zero marginal cost. The single most-attributed individual in the dataset.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Published content — 10 deals at zero marginal cost</div>
+    <p class="text-muted">These deals closed because a published piece of content reached the prospect without a salesperson sending it.</p>
+    <div class="card card-published" style="padding:16px 20px">
+      <div class="deal-row"><div><div class="deal-company">CHS</div><div class="deal-value">$120K</div></div><div><div class="deal-content">Lighthizer JIT insights, GC50 Operating Model Survey, Petraeus JIT</div><div class="deal-cycle">8-year sales cycle — content kept the door open</div></div></div>
+      <div class="deal-row"><div><div class="deal-company">Crawford & Co.</div><div class="deal-value">$94K</div></div><div><div class="deal-content">Newer CEO cohort programming</div><div class="deal-cycle">Published programming converted without sales touch</div></div></div>
+      <div class="deal-row"><div><div class="deal-company">Mission Produce</div><div class="deal-value">$90K</div></div><div><div class="deal-content">October Prospect Newsletter</div><div class="deal-cycle">Newsletter re-engaged cold prospect after ghost</div></div></div>
+      <div class="deal-row"><div><div class="deal-company">GEICO</div><div class="deal-value">$75K</div></div><div><div class="deal-content">GC50 AI Use Cases compendium</div><div class="deal-cycle">Purpose-built content driving $75K close</div></div></div>
+      <div class="deal-row"><div><div class="deal-company">Astellas Pharma</div><div class="deal-value">$74K</div></div><div><div class="deal-content">SC50 weekly newsletter (May 11 edition)</div><div class="deal-cycle">Newsletter nomination prompt drove referral</div></div></div>
+      <div class="deal-row"><div><div class="deal-company">Openlane</div><div class="deal-value">$70K</div></div><div><div class="deal-content">August Newsletter (NVIDIA insights)</div><div class="deal-cycle">Newsletter re-engaged after budget objection</div></div></div>
+      <div class="deal-row"><div><div class="deal-company">Southern Co.</div><div class="deal-value">$68K</div></div><div><div class="deal-content">GC50 summit highlights</div><div class="deal-cycle">Content re-engaged 2017 NXLR alumnus</div></div></div>
+      <div class="deal-row"><div><div class="deal-company">Applied Materials</div><div class="deal-value">$65K</div></div><div><div class="deal-content">Connor Mayer new-role congrats cadence</div><div class="deal-cycle">Content cadence triggered first contact</div></div></div>
+      <div class="deal-row"><div><div class="deal-company">Verizon</div><div class="deal-value">$63K</div></div><div><div class="deal-content">"Excel in Your First Year" insights</div><div class="deal-cycle">4th deal from this series — zero-cost campaign</div></div></div>
+      <div class="deal-row"><div><div class="deal-company">Twilio</div><div class="deal-value">$50K</div></div><div><div class="deal-content">Alumni newsletter</div><div class="deal-cycle">Inbound re-engagement before sales outreach</div></div></div>
+      <div class="deal-total"><span class="deal-total-label">Total</span><span class="deal-total-value">$768,000</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">What the sales team is writing in the GONG emails</div>
+    <p class="text-muted">Unprompted quotes from sales reps and group leaders in the deal celebration emails — not content team analysis.</p>
+    <div class="quote"><div class="quote-text">"HUGE thank you to Connor and the entire content team for consistently providing us with fantastic content that has been proven to consistently set calls and bring in new members."</div><div class="quote-attr">Eaton Corp. salesperson · $80K deal</div></div>
+    <div class="quote"><div class="quote-text">"This is at least the second gong from the summit highlights note. Thanks to the Edit / Content teams for helping us keep fresh insights in front of prospects."</div><div class="quote-attr">Claire Blake, S&P Global · $69K deal</div></div>
+    <div class="quote"><div class="quote-text">"Shout out to the content team for providing the insights needed to get Bobby's attention."</div><div class="quote-attr">Manulife Financial salesperson · $74K deal</div></div>
+    <div class="quote"><div class="quote-text">"Love seeing that dangling the AI Use Case compendium is helping to close members."</div><div class="quote-attr">Elizabeth Weaver, GEICO · $75K deal</div></div>
+  </div>
+
+</div>
+
+<!-- ═══ TAB 3: THE RETENTION CASE ═══ -->
+<div id="retention" class="view">
+
+  <div style="text-align:center;margin-bottom:40px">
+    <h2 style="font-size:28px">Content drives retention too. The same operation serves both sides of the membership lifecycle.</h2>
+  </div>
+
+  <div class="section">
+    <div class="section-label">The correlation: communities that consume more content retain better</div>
+    <p class="text-muted">Across 14 communities with matched data, every community that exceeded its retention budget ranks in the top 9 for content consumption. Below-budget retention almost never appears alongside high consumption.</p>
+    <div class="card">
+      <div class="ret-row" style="font-weight:500;color:var(--muted)">
+        <div>Community</div>
+        <div style="text-align:right">Content</div>
+        <div style="text-align:right">Retention</div>
+        <div style="text-align:right">vs Goal</div>
+      </div>
+      <div class="ret-row"><div class="ret-name">Human Resource 50</div><div class="ret-val" style="color:var(--accent)">949</div><div class="ret-val ret-green">80.1%</div><div class="ret-val ret-green">+2.1</div></div>
+      <div class="ret-row"><div class="ret-name">Global 50</div><div class="ret-val" style="color:var(--accent)">792</div><div class="ret-val ret-green">86.1%</div><div class="ret-val ret-green">+7.6</div></div>
+      <div class="ret-row"><div class="ret-name">Procurement 50</div><div class="ret-val" style="color:var(--accent)">667</div><div class="ret-val ret-green">81.2%</div><div class="ret-val ret-green">+1.2</div></div>
+      <div class="ret-row"><div class="ret-name">General Counsel 50</div><div class="ret-val" style="color:var(--accent)">572</div><div class="ret-val ret-green">87.7%</div><div class="ret-val ret-green">+4.2</div></div>
+      <div class="ret-row"><div class="ret-name">Security 50</div><div class="ret-val" style="color:var(--accent)">514</div><div class="ret-val ret-green">80.7%</div><div class="ret-val ret-green">+1.1</div></div>
+      <div class="ret-row" style="border-top:2px solid var(--border)"><div class="ret-name">Communications 50</div><div class="ret-val" style="color:var(--muted)">644</div><div class="ret-val ret-amber">76.1%</div><div class="ret-val ret-red">-4.3</div></div>
+      <div class="ret-row"><div class="ret-name">Marketing 50</div><div class="ret-val" style="color:var(--muted)">514</div><div class="ret-val ret-amber">74.4%</div><div class="ret-val ret-red">-4.9</div></div>
+      <div class="ret-row"><div class="ret-name">Growth 50</div><div class="ret-val" style="color:var(--muted)">371</div><div class="ret-val ret-amber">71.2%</div><div class="ret-val ret-red">-0.7</div></div>
+      <div class="ret-row"><div class="ret-name">Innovating 50</div><div class="ret-val" style="color:var(--muted)">474</div><div class="ret-val ret-red">65.6%</div><div class="ret-val ret-red">-11.5</div></div>
+    </div>
+    <p style="font-size:11px;color:var(--muted);margin-top:8px">Content = total consumption touchpoints (library items + replays + downloads). Retention vs Goal = percentage points above or below community retention budget target.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-label">The proof case: General Counsel 50</div>
+    <div class="card card-green">
+      <div class="grid-3" style="margin-bottom:12px">
+        <div style="text-align:center">
+          <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:var(--green)">87.7%</div>
+          <div style="font-size:11px;color:var(--muted)">Retention (highest)</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:var(--green)">35.1%</div>
+          <div style="font-size:11px;color:var(--muted)">GONG citation rate (highest)</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:var(--green)">$958K</div>
+          <div style="font-size:11px;color:var(--muted)">Content-attributed pipeline</div>
+        </div>
+      </div>
+      <p class="text-body">GC50 is the single community where every signal aligns: highest retention, highest content citation in sales deals, strong member engagement, and nearly $1M in content-driven pipeline. The same content — AI Use Cases compendium, Operating Model Survey, summit highlights — serves members and converts prospects simultaneously.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Argued content gets more than twice the engagement of summaries</div>
+    <div class="grid-2">
+      <div class="card">
+        <div style="font-family:var(--serif);font-size:32px;font-weight:300;color:var(--accent);margin-bottom:4px">21.5</div>
+        <div style="font-size:12px;color:var(--muted)">Avg engagement per piece — argued/original content</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px">Content with a thesis, a point of view, an editorial frame</div>
+      </div>
+      <div class="card">
+        <div style="font-family:var(--serif);font-size:32px;font-weight:300;color:var(--muted);margin-bottom:4px">10.2</div>
+        <div style="font-size:12px;color:var(--muted)">Avg engagement per piece — readouts and summaries</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px">Call highlights, summit recaps, event write-ups</div>
+      </div>
+    </div>
+    <p style="font-size:11px;color:var(--muted);margin-top:8px">Source: member app engagement data. The same pattern holds on the acquisition side — argued content formats (compendiums at $66K avg deal, "Excel in Your First Year" at $84K avg) close higher-value deals than readout formats.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Newsletter performance vs industry</div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-label card-label-green">Wednesday member newsletter</div>
+        <div style="font-family:var(--serif);font-size:28px;font-weight:300;margin:4px 0">49.7%</div>
+        <div style="font-size:12px;color:var(--muted)">Open rate (2025 avg)</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px">Industry avg: 22%. We run at more than double.</div>
+      </div>
+      <div class="card">
+        <div class="card-label card-label-green">Prospect newsletter (March 2026)</div>
+        <div style="font-family:var(--serif);font-size:28px;font-weight:300;margin:4px 0">39.8%</div>
+        <div style="font-size:12px;color:var(--muted)">Open rate (latest issue, 6 segments)</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px">Improved from 23.5% in early 2025 as segmentation and specificity increased.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <p class="text-body">The same editorial operation produces both the member content that drives retention and the external content that drives pipeline. The briefing calls that feed summit highlights also feed the prospect newsletter. The argued toppers that engage members at twice the rate of summaries also close higher-value deals. This is one engine, not two.</p>
+  </div>
+
+</div>
+
+<!-- ═══ TAB 4: THE OPPORTUNITY ═══ -->
+<div id="ask" class="view">
+
+  <div style="text-align:center;margin-bottom:40px">
+    <h2 style="font-size:28px">The function exists. The products exist. The data proves they drive both acquisition and retention.</h2>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Six communities with $600K+ in unmigrated content pipeline</div>
+    <p class="text-muted">These communities have the highest gap between content-triggered deals and zero-cost published deals. They are the highest-ROI targets for systematized external content.</p>
+    <div class="card">
+      <div class="comm-row" style="font-weight:500;color:var(--muted)"><div>Community</div><div style="text-align:right">Ceiling</div><div style="text-align:right">Rate</div></div>
+      <div class="comm-row"><div class="comm-name">G100 Chief Executive</div><div class="comm-val">$1.01M</div><div class="comm-rate">23.5% · 12 deals</div></div>
+      <div class="comm-row"><div class="comm-name">Communications 50</div><div class="comm-val">$889K</div><div class="comm-rate">25.5% · 14 deals</div></div>
+      <div class="comm-row"><div class="comm-name">General Counsel 50</div><div class="comm-val">$958K</div><div class="comm-rate">35.1% · 13 deals</div></div>
+      <div class="comm-row"><div class="comm-name">Human Resource 50</div><div class="comm-val">$809K</div><div class="comm-rate">23.4% · 11 deals</div></div>
+      <div class="comm-row"><div class="comm-name">Security 50</div><div class="comm-val">$804K</div><div class="comm-rate">22.4% · 11 deals</div></div>
+      <div class="comm-row"><div class="comm-name">Finance 50</div><div class="comm-val">$652K</div><div class="comm-rate">25.0% · 10 deals</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">What's already in production</div>
+    <div class="card">
+      <div class="prod-row"><div class="prod-name">Insights Briefings & JIT call highlights</div><div class="prod-status">Top 5 speakers: 90 deals, $5.3M across 40+ communities</div></div>
+      <div class="prod-row"><div class="prod-name">Summit highlights / SiB</div><div class="prod-status">52 deals, $4.7M — $91K avg deal. Members engage; prospects convert.</div></div>
+      <div class="prod-row"><div class="prod-name">Prospect Newsletter</div><div class="prod-status">6 deals, $400K at 17% zero-cost rate. Open rates approaching member newsletter levels (39.8% in March).</div></div>
+      <div class="prod-row"><div class="prod-name">"Excel in Your First Year" series</div><div class="prod-status">4 deals, $337K at 25% zero-cost rate. Highest-converting format. Currently hand-delivered.</div></div>
+      <div class="prod-row"><div class="prod-name">Connor Mayer's campaigns & cadences</div><div class="prod-status">76 deals, $4.4M across 24 communities. The single most-attributed individual in the dataset.</div></div>
+      <div class="prod-row"><div class="prod-name">Wednesday member newsletter</div><div class="prod-status">49.7% open rate, more than double the industry average. Argued content drives the highest engagement.</div></div>
+      <div class="prod-row"><div class="prod-name">GenAI Content Initiative (Synthesizer)</div><div class="prod-status">In pilot; reduces production hours on briefing-call content. Scales everything above.</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">The scale of the opportunity</div>
+    <div class="migration">
+      <div class="migration-grid">
+        <div><div class="migration-num" style="color:var(--published)">$768K</div><div class="migration-label">Today — zero-cost pipeline</div></div>
+        <div class="migration-arrow">→</div>
+        <div><div class="migration-num" style="color:var(--gold)">$15.7M</div><div class="migration-label">All content-attributed pipeline</div></div>
+      </div>
+      <p class="text-body" style="text-align:center">The external content function already exists in embryonic form — Insights Briefings, Behind Closed Doors, Prospect Newsletter, original content, and the GenAI content initiative are all in motion. On the acquisition side, $15.7M in pipeline. On the retention side, the communities that consume the most content are the ones beating their retention targets. The case is for formalizing a dedicated function that strengthens both.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">For discussion</div>
+    <div class="card card-accent">
+      <div class="discussion-item">
+        <span class="discussion-num">01</span>
+        <div class="discussion-text">Six communities each have $600K+ in content-attributed pipeline with no systematized external distribution. The same communities rank highest in member engagement and retention. What does the resourcing model look like for a dedicated content function serving both audiences?</div>
+      </div>
+      <div class="discussion-item">
+        <span class="discussion-num">02</span>
+        <div class="discussion-text">The Prospect Newsletter converts at $67K per deal and has improved from 23.5% to 39.8% open rate in 12 months. A 90-day editorial calendar mapping 28 sends to source summits already exists. What would it take to resource it at bimonthly cadence for CE and BX?</div>
+      </div>
+      <div class="discussion-item">
+        <span class="discussion-num">03</span>
+        <div class="discussion-text">Argued content gets more than twice the member engagement of summaries — and closes higher-value deals on the acquisition side. How do we protect this editorial standard as production scales?</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="source">Source: GONG Analysis (1,664 deals, $85.9M) · Member engagement data (14 communities) · Newsletter analytics (2023–2026)</div>
+
+</div>
+
+</div>
+
+<div class="footer-nav">
+  <button class="footer-btn" id="nextBtn" onclick="nextView()">Next: 02 — The Evidence →</button>
+</div>
+
+<script>
+const views=['thesis','evidence','retention','ask'];
+const labels=['01 — The Landscape','02 — The Evidence','03 — The Retention Case','04 — The Opportunity'];
+let current=0;
+function showView(id,btn){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  else document.querySelectorAll('.tab')[views.indexOf(id)].classList.add('active');
+  current=views.indexOf(id);
+  updateNav();
+  window.scrollTo(0,0);
+}
+function nextView(){if(current<views.length-1){showView(views[current+1]);}}
+function updateNav(){
+  var btn=document.getElementById('nextBtn');
+  if(current>=views.length-1){btn.style.display='none';}
+  else{btn.style.display='inline-block';btn.textContent='Next: '+labels[current+1]+' →';}
+}
+</script>
+
+</body>
+</html>
