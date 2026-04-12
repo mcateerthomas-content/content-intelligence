@@ -87,10 +87,22 @@ a{color:var(--accent);text-decoration:none}
 .speaker-stat-val{color:var(--text);font-weight:500;font-variant-numeric:tabular-nums}
 .speaker-stat-val.accent{color:var(--accent)}
 .footer-note{font-size:11px;color:var(--muted);line-height:1.7;margin-top:40px;padding-top:20px;border-top:1px solid var(--border)}
+.dash-nav{background:var(--bg);border-bottom:1px solid var(--border);padding:10px 40px;display:flex;align-items:center;gap:0;font-family:var(--sans)}
+.dash-nav-link{font-size:11px;letter-spacing:.8px;color:var(--muted);text-decoration:none;padding:4px 10px;border-radius:3px;transition:all .2s}
+.dash-nav-link:hover{color:var(--text)}
+.dash-nav-link.active{color:var(--accent);font-weight:600}
+.dash-nav-sep{color:var(--border);font-size:10px;margin:0 2px}
 @media(max-width:768px){.header{padding:16px 20px;flex-direction:column;align-items:flex-start;gap:8px}.header-right{text-align:left}.content{padding:24px 20px 80px}.tabs{padding:0 20px;overflow-x:auto}.metrics{grid-template-columns:1fr 1fr;gap:8px}.speaker-grid,.dual-chart{grid-template-columns:1fr}.flywheel{grid-template-columns:1fr;gap:8px}.fw-arrow{transform:rotate(90deg)}.bar-row{grid-template-columns:100px 1fr 50px}}
 </style>
 </head>
 <body>
+<nav class="dash-nav">
+  <a href="index.html" class="dash-nav-link">What Closes Deals</a>
+  <span class="dash-nav-sep">·</span>
+  <a href="retention.html" class="dash-nav-link">What Keeps Members</a>
+  <span class="dash-nav-sep">·</span>
+  <a href="flywheel.html" class="dash-nav-link active">What Builds the Pipeline</a>
+</nav>
 <div class="header"><div class="header-left"><div class="header-label">Content Intelligence</div><div class="header-title">What Builds the Pipeline</div></div><div class="header-right">v19 · 1,664 coded deals · $85.9M total value<br>Newsletter CTOR: 80 issues, Jul 2024 – Apr 2026<br>App engagement: BB Buckets, 428 pieces</div></div>
 <div class="tabs"><button class="tab active" onclick="showTab(0)">Newsletter Engine</button><button class="tab" onclick="showTab(1)">NGL Flywheel</button></div>
 <div class="content">
@@ -163,7 +175,7 @@ a{color:var(--accent);text-decoration:none}
 
 <hr class="divider">
 
-<div class="section"><div class="section-label">Open thread</div><div class="section-title">What's missing: the consumption layer</div><div class="section-body">This tab connects <strong>editorial production</strong> (what we wrote, what type it was) to <strong>engagement</strong> (app consumption, newsletter CTOR). The missing layer is <strong>content consumption over time</strong> — what members actually read, watched, and downloaded after the newsletter brought them in.</div><div class="section-body" style="margin-top:12px"><strong>Next step:</strong> Manual join between Mixpanel top items (library + media, across 7D / 30D / 3M / 6M / 12M windows) and the editorial calendar. That join enriches both <em>What Keeps Members</em> (which content drives retention-correlated engagement) and <em>What Builds the Pipeline</em> (which newsletter topics drive the deepest platform sessions).</div><div class="section-body" style="margin-top:12px"><strong>Open question:</strong> Whether to approach Sam Wilkes on timing/decay analysis as a collaboration — studying how long after publication a piece continues to drive engagement, and whether certain content types (original vs. readout, summit vs. call) have longer half-lives.</div></div>
+<div class="section"><div class="section-label">For discussion</div><div class="section-title">The consumption layer</div><div class="section-body">This tab connects <strong>editorial production</strong> (what we wrote, what type it was) to <strong>engagement</strong> (app consumption, newsletter CTOR). The next layer is <strong>content consumption over time</strong> — what members actually read, watched, and downloaded after the newsletter brought them in, and how long that engagement persists.</div><div class="section-body" style="margin-top:12px">Two questions for the team: What would a content half-life analysis reveal about which formats sustain engagement longest — and how should that shape production priorities? And does the editorial calendar, joined to platform consumption data, show whether summit-origin content has a longer shelf life than call-origin content?</div></div>
 
 <div class="footer-note">Data sources: Newsletter CTOR from Wednesday All Network performance tracking (80 issues, Jul 2024 – Apr 2026). CTOR = clicks ÷ opens; metric adopted mid-2024, replacing CTR, partly to address bot-inflated open counts. Earlier data (2023 – Jun 2024) measured CTR and is not blended here. Community origin tagged from editorial calendar "content origin" field. GONG Analysis v18 (1,664 coded deals, $85.9M). Content type classification (Original, Readout, Curation, Quantitative) per Bob Bierman's taxonomy of 428 app-engagement pieces confirms argued content outperforms readouts 2.1:1 — the same pattern the newsletter CTOR data shows by community origin. · Tom McAteer, Director of Content, NYC Content Team</div>
 </div>
