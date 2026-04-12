@@ -13,6 +13,11 @@
 --serif:'Cormorant Garamond',Georgia,serif;--sans:'DM Sans',Helvetica,sans-serif;
 }
 body{background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+.dash-nav{background:var(--bg);border-bottom:1px solid var(--border);padding:10px 32px;display:flex;align-items:center;gap:0;font-family:var(--sans)}
+.dash-nav-link{font-size:11px;letter-spacing:.8px;color:var(--muted);text-decoration:none;padding:4px 10px;border-radius:3px;transition:all .2s}
+.dash-nav-link:hover{color:var(--text)}
+.dash-nav-link.active{color:var(--accent);font-weight:600}
+.dash-nav-sep{color:var(--border);font-size:10px;margin:0 2px}
 .header{border-bottom:1px solid var(--border);padding:20px 32px;display:flex;justify-content:space-between;align-items:baseline}
 .header-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent)}
 .header-title{font-family:var(--serif);font-size:26px;font-weight:300;margin-top:6px}
@@ -80,6 +85,14 @@ h2{font-family:var(--serif);font-weight:300;color:var(--text);margin:0;line-heig
 </head>
 <body>
 
+<nav class="dash-nav">
+  <a href="index.html" class="dash-nav-link">What Closes Deals</a>
+  <span class="dash-nav-sep">·</span>
+  <a href="retention.html" class="dash-nav-link active">What Keeps Members</a>
+  <span class="dash-nav-sep">·</span>
+  <a href="flywheel.html" class="dash-nav-link">What Builds the Pipeline</a>
+</nav>
+
 <div class="header">
   <div>
     <div class="header-label">World 50 Content Intelligence</div>
@@ -125,52 +138,19 @@ h2{font-family:var(--serif);font-weight:300;color:var(--text);margin:0;line-heig
 
   <div class="section">
     <div class="section-label">The retention effect — content lifts retention at every engagement tier</div>
-    <div class="card card-accent" style="margin-bottom:16px">
-      <table class="matrix">
-        <thead>
-          <tr>
-            <th style="width:140px">Engagement</th>
-            <th>Low Content (0–2)</th>
-            <th>Med Content (2–5)</th>
-            <th>High Content (6+)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Low (0–2 events)</td>
-            <td><div class="cell-inner" style="background:rgba(138,138,142,0.15)">71%</div></td>
-            <td><div class="cell-inner" style="background:rgba(91,140,107,0.25)">85%</div></td>
-            <td><div class="cell-inner" style="background:rgba(91,140,107,0.35)">86%</div></td>
-          </tr>
-          <tr>
-            <td>Med (3–5 events)</td>
-            <td><div class="cell-inner" style="background:rgba(138,138,142,0.2)">83%</div></td>
-            <td><div class="cell-inner" style="background:rgba(91,140,107,0.4)">92%</div></td>
-            <td><div class="cell-inner" style="background:rgba(91,140,107,0.35)">91%</div></td>
-          </tr>
-          <tr>
-            <td>High (6+ events)</td>
-            <td><div class="cell-inner" style="background:rgba(91,140,107,0.25)">87%</div></td>
-            <td><div class="cell-inner" style="background:rgba(91,140,107,0.5)">95%</div></td>
-            <td><div class="cell-inner" style="background:rgba(91,140,107,0.4)">92%</div></td>
-          </tr>
-        </tbody>
-      </table>
-      <p style="font-size:11px;color:var(--muted);margin-top:12px;text-align:center">Tenured Members, 2025 YTD. Retention rate by engagement level and content usage tier.</p>
+    <div class="grid-2">
+      <div class="card">
+        <div style="font-family:var(--serif);font-size:36px;font-weight:300;color:var(--green);margin-bottom:4px">+15 pts</div>
+        <div style="font-size:12px;color:var(--muted)">Retention lift for low-engagement members</div>
+        <div style="font-size:12px;color:var(--text);margin-top:8px">Content usage alone lifts retention from 71% to 86% among members with 0–2 events. Content compensates for lower event participation.</div>
+      </div>
+      <div class="card">
+        <div style="font-family:var(--serif);font-size:36px;font-weight:300;color:var(--green);margin-bottom:4px">24 pts</div>
+        <div style="font-size:12px;color:var(--muted)">Maximum retention spread</div>
+        <div style="font-size:12px;color:var(--text);margin-top:8px">Low engagement + low content (71%) to medium engagement + medium content (95%). Content is not riding engagement's coattails. It contributes independently.</div>
+      </div>
     </div>
-  </div>
-
-  <div class="grid-2">
-    <div class="card">
-      <div style="font-family:var(--serif);font-size:36px;font-weight:300;color:var(--green);margin-bottom:4px">+15 pts</div>
-      <div style="font-size:12px;color:var(--muted)">Retention lift for low-engagement members</div>
-      <div style="font-size:12px;color:var(--text);margin-top:8px">Content usage alone lifts retention from 71% to 86% among members with 0–2 events. Content compensates for lower event participation.</div>
-    </div>
-    <div class="card">
-      <div style="font-family:var(--serif);font-size:36px;font-weight:300;color:var(--green);margin-bottom:4px">24 pts</div>
-      <div style="font-size:12px;color:var(--muted)">Maximum retention spread</div>
-      <div style="font-size:12px;color:var(--text);margin-top:8px">Low engagement + low content (71%) to medium engagement + medium content (95%). Content is not riding engagement's coattails. It contributes independently.</div>
-    </div>
+    <p style="font-size:11px;color:var(--muted);margin-top:12px">Full retention matrix by engagement tier and content usage in <a href="#" onclick="showView('retention',document.querySelectorAll('.tab')[1]);return false" style="color:var(--accent)">02 — Retention</a>.</p>
   </div>
 
 </div>
