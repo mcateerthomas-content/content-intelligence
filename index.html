@@ -13,6 +13,11 @@
 --serif:'Cormorant Garamond',Georgia,serif;--sans:'DM Sans',Helvetica,sans-serif;
 }
 body{background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+.dash-nav{background:var(--bg);border-bottom:1px solid var(--border);padding:10px 32px;display:flex;align-items:center;gap:0;font-family:var(--sans)}
+.dash-nav-link{font-size:11px;letter-spacing:.8px;color:var(--muted);text-decoration:none;padding:4px 10px;border-radius:3px;transition:all .2s}
+.dash-nav-link:hover{color:var(--text)}
+.dash-nav-link.active{color:var(--accent);font-weight:600}
+.dash-nav-sep{color:var(--border);font-size:10px;margin:0 2px}
 .header{border-bottom:1px solid var(--border);padding:20px 32px;display:flex;justify-content:space-between;align-items:baseline}
 .header-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent)}
 .header-title{font-family:var(--serif);font-size:26px;font-weight:300;margin-top:6px}
@@ -96,6 +101,14 @@ h2{font-family:var(--serif);font-weight:300;color:var(--text);margin:0;line-heig
 </head>
 <body>
 
+<nav class="dash-nav">
+  <a href="index.html" class="dash-nav-link active">What Closes Deals</a>
+  <span class="dash-nav-sep">·</span>
+  <a href="retention.html" class="dash-nav-link">What Keeps Members</a>
+  <span class="dash-nav-sep">·</span>
+  <a href="flywheel.html" class="dash-nav-link">What Builds the Pipeline</a>
+</nav>
+
 <div class="header">
   <div>
     <div class="header-label">World 50 Content Intelligence</div>
@@ -118,7 +131,7 @@ h2{font-family:var(--serif);font-weight:300;color:var(--text);margin:0;line-heig
 
   <div style="text-align:center;margin-bottom:48px">
     <h2 style="font-size:30px">Content touches 39% of coded revenue — $35M+ across acquisition, retention, and enterprise pipeline.</h2>
-    <p style="font-size:13px;color:var(--muted);margin-top:16px;line-height:1.6">We coded 1,689 GONG deal narratives from May 2024 through April 2026 — $88.2M in membership sales. In 275 deals, the salesperson explicitly credits content as a factor in the close ($15.8M). Add the NGL Succession Flywheel ($9.3M) and multi-community enterprise accounts ($10.2M) — both built on programming and editorial quality — and the content-influenced universe exceeds $35M.</p>
+    <p style="font-size:13px;color:var(--muted);margin-top:16px;line-height:1.6">We coded 1,689 GONG deal narratives from May 2024 through April 2026 — $88.2M in membership sales. Content is directly attributed in $15.8M (275 deals where the salesperson explicitly credits content), programmatically linked in $9.3M (NGL Succession Flywheel — programming quality compounds into enterprise revenue), and structurally required in $10.2M (multi-community accounts that depend on editorial coherence). Together, the content-influenced universe exceeds $35M.</p>
   </div>
 
   <div class="stat-grid" style="margin-bottom:16px">
@@ -307,7 +320,7 @@ h2{font-family:var(--serif);font-weight:300;color:var(--text);margin:0;line-heig
 
   <div class="section">
     <div class="section-label">The correlation: communities that consume more content retain better</div>
-    <p class="text-muted">Across 14 communities with matched data, every community that exceeded its retention budget ranks in the top 9 for content consumption. Below-budget retention almost never appears alongside high consumption.</p>
+    <p class="text-muted">Across 14 communities with matched data, every community that exceeded its retention budget ranks in the top tier for content consumption. Three proof cases:</p>
     <div class="card">
       <div class="ret-row" style="font-weight:500;color:var(--muted)">
         <div>Community</div>
@@ -315,17 +328,11 @@ h2{font-family:var(--serif);font-weight:300;color:var(--text);margin:0;line-heig
         <div style="text-align:right">Retention</div>
         <div style="text-align:right">vs Goal</div>
       </div>
-      <div class="ret-row"><div class="ret-name">Human Resource 50</div><div class="ret-val" style="color:var(--accent)">949</div><div class="ret-val ret-green">80.1%</div><div class="ret-val ret-green">+2.1</div></div>
-      <div class="ret-row"><div class="ret-name">Global 50</div><div class="ret-val" style="color:var(--accent)">792</div><div class="ret-val ret-green">86.1%</div><div class="ret-val ret-green">+7.6</div></div>
-      <div class="ret-row"><div class="ret-name">Procurement 50</div><div class="ret-val" style="color:var(--accent)">667</div><div class="ret-val ret-green">81.2%</div><div class="ret-val ret-green">+1.2</div></div>
       <div class="ret-row"><div class="ret-name">General Counsel 50</div><div class="ret-val" style="color:var(--accent)">572</div><div class="ret-val ret-green">87.7%</div><div class="ret-val ret-green">+4.2</div></div>
-      <div class="ret-row"><div class="ret-name">Security 50</div><div class="ret-val" style="color:var(--accent)">514</div><div class="ret-val ret-green">80.7%</div><div class="ret-val ret-green">+1.1</div></div>
-      <div class="ret-row" style="border-top:2px solid var(--border)"><div class="ret-name">Communications 50</div><div class="ret-val" style="color:var(--muted)">644</div><div class="ret-val ret-amber">76.1%</div><div class="ret-val ret-red">-4.3</div></div>
-      <div class="ret-row"><div class="ret-name">Marketing 50</div><div class="ret-val" style="color:var(--muted)">514</div><div class="ret-val ret-amber">74.4%</div><div class="ret-val ret-red">-4.9</div></div>
-      <div class="ret-row"><div class="ret-name">Growth 50</div><div class="ret-val" style="color:var(--muted)">371</div><div class="ret-val ret-amber">71.2%</div><div class="ret-val ret-red">-0.7</div></div>
-      <div class="ret-row"><div class="ret-name">Innovating 50</div><div class="ret-val" style="color:var(--muted)">474</div><div class="ret-val ret-red">65.6%</div><div class="ret-val ret-red">-11.5</div></div>
+      <div class="ret-row"><div class="ret-name">Global 50</div><div class="ret-val" style="color:var(--accent)">792</div><div class="ret-val ret-green">86.1%</div><div class="ret-val ret-green">+7.6</div></div>
+      <div class="ret-row"><div class="ret-name">Human Resource 50</div><div class="ret-val" style="color:var(--accent)">949</div><div class="ret-val ret-green">80.1%</div><div class="ret-val ret-green">+2.1</div></div>
     </div>
-    <p style="font-size:11px;color:var(--muted);margin-top:8px">Content = total consumption touchpoints (library items + replays + downloads). Retention vs Goal = percentage points above or below community retention budget target.</p>
+    <p style="font-size:11px;color:var(--muted);margin-top:8px">Content = total consumption touchpoints (library items + replays + downloads). Retention vs Goal = percentage points above or below community retention budget target. <a href="retention.html" style="color:var(--accent)">See What Keeps Members for the full portfolio view →</a></p>
   </div>
 
   <div class="section">
@@ -485,7 +492,7 @@ h2{font-family:var(--serif);font-weight:300;color:var(--text);margin:0;line-heig
         <div class="migration-arrow">→</div>
         <div><div class="migration-num" style="color:var(--accent);font-size:20px">$35M+</div><div class="migration-label">Full content-influenced universe</div></div>
       </div>
-      <p class="text-body" style="text-align:center">Content is cited in 17.9% of $88.2M in coded revenue. Add the NGL Flywheel ($9.3M) and multi-community enterprise accounts ($10.2M) — both built on programming and editorial quality — and the content-influenced universe exceeds $35M, or 39% of all coded revenue.</p>
+      <p class="text-body" style="text-align:center">Content is directly attributed in $15.8M (17.9% of coded revenue), programmatically linked in $9.3M (NGL Flywheel), and structurally required in $10.2M (multi-community editorial coherence). Together, the content-influenced universe exceeds $35M, or 39% of all coded revenue.</p>
     </div>
   </div>
 
